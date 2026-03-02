@@ -58,7 +58,7 @@ The application will include:
 
 ## Out of Scope
 
-The following features will not be included in this semester project:
+The following features will not be included in this semester's project:
 
 - Direct bank integrations
 - Automated tax filing
