@@ -34,3 +34,58 @@ The system must provide the following core functionality:
 
 ---
 
+## 3. Non-Functional Requirements
+
+### Usability
+The system should provide a clean and simple interface so property owners can easily enter and review financial data.
+
+### Reliability
+The system must store data securely and prevent accidental loss of financial records.
+
+### Maintainability
+The codebase should be structured so future features such as reporting tools or tenant management can be added.
+
+### Performance
+The system should load property and financial data quickly even when multiple properties and transactions are stored.
+
+---
+
+## 4. Scope
+
+### In Scope
+- Property record management
+- Rental income tracking
+- Expense tracking
+- Basic financial summaries
+- Web-based user interface
+
+### Out of Scope (Initial Version)
+- Automated bank integration
+- Tenant portals
+- Online rent payment processing
+- Tax filing automation
+
+These features may be considered in future versions of the system.
+
+---
+
+## 5. Constraints
+
+The project is being developed as part of a capstone course with limited development time and resources. Additional constraints include:
+
+- Single developer project
+- Limited timeline for development
+- Must use tools appropriate for student-level development
+- Must be hosted and version-controlled using GitHub
+
+---
+
+## 6. Success Criteria
+
+The project will be considered successful if:
+
+- Users can create and manage property records
+- Users can record income and expenses
+- The system correctly calculates profit and loss
+- Financial data can be easily viewed and organized
+- The application runs reliably in a web environment
