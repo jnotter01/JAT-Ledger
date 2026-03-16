@@ -1,1 +1,8 @@
+#Requirements Analysis
+Johnny Apple Trees Ledger
 
+##1. Problem Statment
+
+Johnny Apple Trees LLC manages rental properties and must track income, expenses, and property information. Currently, much of this information is stored manually across multiple systems, making it difficult to maintain accurate records and quickly evaluate financial performance.
+
+The purpose of Johnny Apple Trees Ledger system is to provide a centralized digital ledger for managing rental property finances. The system will allow property owners to record rent payments, log expenses, track individual properties, and generate clear financial records for business management and tax preparation. 
