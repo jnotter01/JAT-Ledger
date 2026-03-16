@@ -6,3 +6,31 @@ Johnny Apple Trees Ledger
 Johnny Apple Trees LLC manages rental properties and must track income, expenses, and property information. Currently, much of this information is stored manually across multiple systems, making it difficult to maintain accurate records and quickly evaluate financial performance.
 
 The purpose of Johnny Apple Trees Ledger system is to provide a centralized digital ledger for managing rental property finances. The system will allow property owners to record rent payments, log expenses, track individual properties, and generate clear financial records for business management and tax preparation. 
+
+---
+
+## 2. Functional Requirements
+
+The system must provide the following core functionality:
+
+### Property Management
+- Users can create, edit, and delete property records.
+- Each property stores information such as address, purchase price, and notes.
+
+### Income Tracking
+- Users can record rental income for each property.
+- Income records include amount, date received, and description.
+
+### Expense Tracking
+- Users can log expenses associated with each property.
+- Expenses include cost, date, category (maintenance, utilities, taxes, etc.), and notes.
+
+### Ledger View
+- The system will display a chronological ledger of financial transactions.
+- Users can filter entries by property or transaction type.
+
+### Financial Summary
+- The system will calculate total income, total expenses, and net profit for properties.
+
+---
+
