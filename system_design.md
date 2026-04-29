@@ -69,26 +69,23 @@ The following technologies will be used:
 5. The system updates totals and summaries.
 6. The user views ledger entries and financial summaries.
 
----
-
 ## 6. Diagram
 
+```
 [ User ]
-|
-v
+   |
+   v
 [ Frontend (HTML/CSS) ]
-|
-v
+   |
+   v
 [ Backend (Django Application) ]
-|
-v
+   |
+   v
 [ Database (SQLite) ]
-|
-v
+   |
+   v
 [ Reports / Summaries ]
-
-
----
+```
 
 ## 7. Design Considerations
 
