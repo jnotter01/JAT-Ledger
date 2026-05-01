@@ -3,8 +3,8 @@ from .services import calculate_summary
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from .forms import TransactionForm
-from .models import Transaction
+from .forms import PropertyForm, TransactionForm
+from .models import Property, Transaction
 
 @login_required
 def dashboard(request):
@@ -14,6 +14,32 @@ def dashboard(request):
     return render(request, "ledger/dashboard.html", {
         "transaction_count": transaction_count,
         "recent_transactions": recent_transactions,
+    })
+
+@login_required
+def property_list(request):
+    properties = Property.objects.filter(user=request.user).order_by("name")
+
+    return render(request, "ledger/property_list.html", {
+        "properties": properties,
+    })
+
+
+@login_required
+def property_create(request):
+    if request.method == "POST":
+        form = PropertyForm(request.POST)
+
+        if form.is_valid():
+            property_record = form.save(commit=False)
+            property_record.user = request.user
+            property_record.save()
+            return redirect("property_list")
+    else:
+        form = PropertyForm()
+
+    return render(request, "ledger/property_form.html", {
+        "form": form,
     })
 
 @login_required

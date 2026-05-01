@@ -1,0 +1,17 @@
+{% extends "ledger/base.html" %}
+
+{% block content %}
+<h2>Add Rental Property</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Save Property</button>
+</form>
+
+<p>
+    <a href="{% url 'property_list' %}">Back to Properties</a>
+</p>
+{% endblock %}

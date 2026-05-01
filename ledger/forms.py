@@ -1,5 +1,18 @@
 from django import forms
-from .models import Transaction
+from .models import Property, Transaction
+
+
+class PropertyForm(forms.ModelForm):
+    class Meta:
+        model = Property
+        fields = [
+            "name",
+            "address",
+            "city",
+            "state",
+            "zip_code",
+            "active",
+        ]
 
 
 class TransactionForm(forms.ModelForm):

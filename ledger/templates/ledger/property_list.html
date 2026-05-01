@@ -1,0 +1,38 @@
+{% extends "ledger/base.html" %}
+
+{% block content %}
+<h2>Rental Properties</h2>
+
+<p>
+    <a href="{% url 'property_create' %}">Add a New Property</a>
+</p>
+
+{% if properties %}
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>ZIP Code</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for property in properties %}
+        <tr>
+            <td>{{ property.name }}</td>
+            <td>{{ property.address }}</td>
+            <td>{{ property.city }}</td>
+            <td>{{ property.state }}</td>
+            <td>{{ property.zip_code }}</td>
+            <td>{{ property.active }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No properties have been added yet.</p>
+{% endif %}
+{% endblock %}
