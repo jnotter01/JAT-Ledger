@@ -1,0 +1,55 @@
+{% extends "ledger/base.html" %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<p>
+    Welcome to JAT Ledger. This application tracks rental property income,
+    expenses, and financial summaries for Johnny Apple Trees.
+</p>
+
+<div class="summary-box">
+    <p><strong>Total Transactions Entered:</strong> {{ transaction_count }}</p>
+</div>
+
+<h3>Current Functionality</h3>
+
+<ul>
+    <li>Database-backed rental properties, categories, and transactions</li>
+    <li>Transaction creation form</li>
+    <li>Transaction list view</li>
+    <li>Summary report showing income, expenses, and net profit</li>
+    <li>Validation for transaction amounts and category/type matching</li>
+</ul>
+
+<h3>Recent Transactions</h3>
+
+{% if recent_transactions %}
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in recent_transactions %}
+        <tr>
+            <td>{{ transaction.transaction_date }}</td>
+            <td>{{ transaction.property }}</td>
+            <td>{{ transaction.transaction_type }}</td>
+            <td>${{ transaction.amount }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No transactions have been entered yet.</p>
+{% endif %}
+
+<p>
+    <a href="{% url 'transaction_create' %}">Add a Transaction</a>
+</p>
+{% endblock %}

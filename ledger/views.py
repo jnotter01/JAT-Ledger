@@ -6,6 +6,15 @@ from django.shortcuts import redirect, render
 from .forms import TransactionForm
 from .models import Transaction
 
+@login_required
+def dashboard(request):
+    transaction_count = Transaction.objects.filter(user=request.user).count()
+    recent_transactions = Transaction.objects.filter(user=request.user).order_by("-transaction_date")[:5]
+
+    return render(request, "ledger/dashboard.html", {
+        "transaction_count": transaction_count,
+        "recent_transactions": recent_transactions,
+    })
 
 @login_required
 def transaction_list(request):
