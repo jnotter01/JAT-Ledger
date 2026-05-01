@@ -1,0 +1,22 @@
+{% extends "ledger/base.html" %}
+
+{% block content %}
+<h2>Create Account</h2>
+
+<p>
+    JAT Ledger accounts are intended for authorized Johnny Apple Trees staff or managers.
+</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Create Account</button>
+</form>
+
+<p>
+    Already have an account?
+    <a href="{% url 'login' %}">Login here</a>.
+</p>
+{% endblock %}
