@@ -1,4 +1,4 @@
-from decimal import Decimal
+from .services import calculate_summary
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
@@ -37,20 +37,6 @@ def transaction_create(request):
 @login_required
 def report_summary(request):
     transactions = Transaction.objects.filter(user=request.user)
+    summary = calculate_summary(transactions)
 
-    total_income = Decimal("0.00")
-    total_expenses = Decimal("0.00")
-
-    for transaction in transactions:
-        if transaction.transaction_type == "Income":
-            total_income += transaction.amount
-        elif transaction.transaction_type == "Expense":
-            total_expenses += transaction.amount
-
-    net_profit = total_income - total_expenses
-
-    return render(request, "ledger/report_summary.html", {
-        "total_income": total_income,
-        "total_expenses": total_expenses,
-        "net_profit": net_profit,
-    })
+    return render(request, "ledger/report_summary.html", summary)
