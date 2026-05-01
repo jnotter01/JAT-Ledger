@@ -1,0 +1,15 @@
+{% extends "ledger/base.html" %}
+
+{% block content %}
+<h2>Summary Report</h2>
+
+<div class="summary-box">
+    <p><strong>Total Income:</strong> ${{ total_income }}</p>
+    <p><strong>Total Expenses:</strong> ${{ total_expenses }}</p>
+    <p><strong>Net Profit:</strong> ${{ net_profit }}</p>
+</div>
+
+<p>
+    <a href="{% url 'transaction_list' %}">View Transactions</a>
+</p>
+{% endblock %}
