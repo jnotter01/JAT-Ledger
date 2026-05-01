@@ -1,5 +1,5 @@
 from django import forms
-from .models import Property, Transaction
+from .models import Category, Property, Transaction
 
 
 class PropertyForm(forms.ModelForm):
@@ -42,3 +42,11 @@ class TransactionForm(forms.ModelForm):
             raise forms.ValidationError("Amount must be greater than zero.")
 
         return amount
+    
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = [
+            "name",
+            "category_type",
+        ]

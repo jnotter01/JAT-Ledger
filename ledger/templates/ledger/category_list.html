@@ -1,0 +1,30 @@
+{% extends "ledger/base.html" %}
+
+{% block content %}
+<h2>Transaction Categories</h2>
+
+<p>
+    <a href="{% url 'category_create' %}">Add a New Category</a>
+</p>
+
+{% if categories %}
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td>{{ category.category_type }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No categories have been added yet.</p>
+{% endif %}
+{% endblock %}

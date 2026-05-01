@@ -3,8 +3,8 @@ from .services import calculate_summary
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from .forms import PropertyForm, TransactionForm
-from .models import Property, Transaction
+from .forms import CategoryForm, PropertyForm, TransactionForm
+from .models import Category, Property, Transaction
 
 @login_required
 def dashboard(request):
@@ -75,3 +75,29 @@ def report_summary(request):
     summary = calculate_summary(transactions)
 
     return render(request, "ledger/report_summary.html", summary)
+
+@login_required
+def category_list(request):
+    categories = Category.objects.filter(user=request.user).order_by("category_type", "name")
+
+    return render(request, "ledger/category_list.html", {
+        "categories": categories,
+    })
+
+
+@login_required
+def category_create(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.user = request.user
+            category.save()
+            return redirect("category_list")
+    else:
+        form = CategoryForm()
+
+    return render(request, "ledger/category_form.html", {
+        "form": form,
+    })
