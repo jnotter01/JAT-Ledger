@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 
 from .forms import CategoryForm, PropertyForm, TransactionForm
 from .models import Category, Property, Transaction
+from .services import calculate_summary
 
 @login_required
 def dashboard(request):
@@ -84,7 +85,6 @@ def category_list(request):
         "categories": categories,
     })
 
-
 @login_required
 def category_create(request):
     if request.method == "POST":
@@ -99,5 +99,22 @@ def category_create(request):
         form = CategoryForm()
 
     return render(request, "ledger/category_form.html", {
+        "form": form,
+    })
+
+@login_required
+def transaction_create(request):
+    if request.method == "POST":
+        form = TransactionForm(request.POST, user=request.user)
+
+        if form.is_valid():
+            transaction = form.save(commit=False)
+            transaction.user = request.user
+            transaction.save()
+            return redirect("transaction_list")
+    else:
+        form = TransactionForm(user=request.user)
+
+    return render(request, "ledger/transaction_form.html", {
         "form": form,
     })

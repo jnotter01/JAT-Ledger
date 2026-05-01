@@ -32,6 +32,40 @@ class TransactionForm(forms.ModelForm):
             "description": forms.Textarea(attrs={"rows": 3}),
         }
 
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+
+        if user is not None:
+            self.fields["property"].queryset = Property.objects.filter(user=user)
+            self.fields["category"].queryset = Category.objects.filter(user=user)
+
+    def clean_amount(self):
+        amount = self.cleaned_data.get("amount")
+
+        if amount is None:
+            raise forms.ValidationError("Amount is required.")
+
+        if amount <= 0:
+            raise forms.ValidationError("Amount must be greater than zero.")
+
+        return amount
+    class Meta:
+        model = Transaction
+        fields = [
+            "property",
+            "category",
+            "transaction_type",
+            "amount",
+            "description",
+            "transaction_date",
+        ]
+
+        widgets = {
+            "transaction_date": forms.DateInput(attrs={"type": "date"}),
+            "description": forms.Textarea(attrs={"rows": 3}),
+        }
+
     def clean_amount(self):
         amount = self.cleaned_data.get("amount")
 
