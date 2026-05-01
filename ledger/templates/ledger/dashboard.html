@@ -9,17 +9,35 @@
 </p>
 
 <div class="summary-box">
-    <p><strong>Total Transactions Entered:</strong> {{ transaction_count }}</p>
+    <p><strong>Properties:</strong> {{ property_count }}</p>
+    <p><strong>Categories:</strong> {{ category_count }}</p>
+    <p><strong>Transactions:</strong> {{ transaction_count }}</p>
 </div>
+
+<h3>Getting Started</h3>
+
+<ol>
+    <li>Add at least one rental property.</li>
+    <li>Add income and expense categories, such as Rent and Repairs.</li>
+    <li>Add income or expense transactions.</li>
+    <li>View the summary report to see income, expenses, and net profit.</li>
+</ol>
+
+<p>
+    <a href="{% url 'property_create' %}">Add Property</a> |
+    <a href="{% url 'category_create' %}">Add Category</a> |
+    <a href="{% url 'transaction_create' %}">Add Transaction</a>
+</p>
 
 <h3>Current Functionality</h3>
 
 <ul>
     <li>Database-backed rental properties, categories, and transactions</li>
-    <li>Transaction creation form</li>
-    <li>Transaction list view</li>
+    <li>User-facing property and category management</li>
+    <li>Transaction creation, editing, and deletion</li>
     <li>Summary report showing income, expenses, and net profit</li>
     <li>Validation for transaction amounts and category/type matching</li>
+    <li>User login, logout, signup, and user-specific records</li>
 </ul>
 
 <h3>Recent Transactions</h3>
@@ -46,10 +64,6 @@
     </tbody>
 </table>
 {% else %}
-<p>No transactions have been entered yet.</p>
+<p>No transactions have been entered yet. Use the getting started links above to begin.</p>
 {% endif %}
-
-<p>
-    <a href="{% url 'transaction_create' %}">Add a Transaction</a>
-</p>
 {% endblock %}

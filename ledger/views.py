@@ -26,10 +26,14 @@ def signup(request):
 
 @login_required
 def dashboard(request):
+    property_count = Property.objects.filter(user=request.user).count()
+    category_count = Category.objects.filter(user=request.user).count()
     transaction_count = Transaction.objects.filter(user=request.user).count()
     recent_transactions = Transaction.objects.filter(user=request.user).order_by("-transaction_date")[:5]
 
     return render(request, "ledger/dashboard.html", {
+        "property_count": property_count,
+        "category_count": category_count,
         "transaction_count": transaction_count,
         "recent_transactions": recent_transactions,
     })
