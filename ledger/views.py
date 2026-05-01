@@ -1,7 +1,7 @@
 from .services import calculate_summary
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CategoryForm, PropertyForm, TransactionForm
 from .models import Category, Property, Transaction
@@ -117,4 +117,44 @@ def transaction_create(request):
 
     return render(request, "ledger/transaction_form.html", {
         "form": form,
+    })
+
+@login_required
+def transaction_edit(request, transaction_id):
+    transaction = get_object_or_404(
+        Transaction,
+        id=transaction_id,
+        user=request.user,
+    )
+
+    if request.method == "POST":
+        form = TransactionForm(request.POST, instance=transaction, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect("transaction_list")
+    else:
+        form = TransactionForm(instance=transaction, user=request.user)
+
+    return render(request, "ledger/transaction_form.html", {
+        "form": form,
+        "transaction": transaction,
+        "is_edit": True,
+    })
+
+
+@login_required
+def transaction_delete(request, transaction_id):
+    transaction = get_object_or_404(
+        Transaction,
+        id=transaction_id,
+        user=request.user,
+    )
+
+    if request.method == "POST":
+        transaction.delete()
+        return redirect("transaction_list")
+
+    return render(request, "ledger/transaction_confirm_delete.html", {
+        "transaction": transaction,
     })
