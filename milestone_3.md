@@ -52,7 +52,7 @@ The application will remain publicly available through finals week so other stud
 
 Final demo video link:
 
-youtube.com/datsatoilet
+https://youtu.be/7c-hbtgvTk8
 
 The video demonstrates the project overview, current functionality, documentation, public deployment, transaction workflow, summary reporting, validation, and testing progress.
 
