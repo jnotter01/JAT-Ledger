@@ -101,10 +101,34 @@ def transaction_create(request):
 
 @login_required
 def report_summary(request):
+    properties = Property.objects.filter(user=request.user).order_by("name")
     transactions = Transaction.objects.filter(user=request.user)
+
+    selected_property = request.GET.get("property")
+    start_date = request.GET.get("start_date")
+    end_date = request.GET.get("end_date")
+
+    if selected_property:
+        transactions = transactions.filter(property_id=selected_property)
+
+    if start_date:
+        transactions = transactions.filter(transaction_date__gte=start_date)
+
+    if end_date:
+        transactions = transactions.filter(transaction_date__lte=end_date)
+
     summary = calculate_summary(transactions)
 
-    return render(request, "ledger/report_summary.html", summary)
+    return render(request, "ledger/report_summary.html", {
+        "total_income": summary["total_income"],
+        "total_expenses": summary["total_expenses"],
+        "net_profit": summary["net_profit"],
+        "properties": properties,
+        "selected_property": selected_property,
+        "start_date": start_date,
+        "end_date": end_date,
+        "transactions": transactions.order_by("-transaction_date"),
+    })
 
 @login_required
 def category_list(request):

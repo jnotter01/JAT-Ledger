@@ -3,13 +3,66 @@
 {% block content %}
 <h2>Summary Report</h2>
 
+<form method="get">
+    <label for="property">Property:</label>
+    <select name="property" id="property">
+        <option value="">All Properties</option>
+        {% for property in properties %}
+            <option value="{{ property.id }}"
+                {% if selected_property == property.id|stringformat:"s" %}selected{% endif %}>
+                {{ property }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label for="start_date">Start Date:</label>
+    <input type="date" name="start_date" id="start_date" value="{{ start_date }}">
+
+    <label for="end_date">End Date:</label>
+    <input type="date" name="end_date" id="end_date" value="{{ end_date }}">
+
+    <button type="submit">Apply Filters</button>
+    <a href="{% url 'report_summary' %}">Clear Filters</a>
+</form>
+
 <div class="summary-box">
     <p><strong>Total Income:</strong> ${{ total_income }}</p>
     <p><strong>Total Expenses:</strong> ${{ total_expenses }}</p>
     <p><strong>Net Profit:</strong> ${{ net_profit }}</p>
 </div>
 
+<h3>Transactions Included in Report</h3>
+
+{% if transactions %}
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Property</th>
+            <th>Category</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.transaction_date }}</td>
+            <td>{{ transaction.property }}</td>
+            <td>{{ transaction.category }}</td>
+            <td>{{ transaction.transaction_type }}</td>
+            <td>${{ transaction.amount }}</td>
+            <td>{{ transaction.description }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No transactions match the selected report filters.</p>
+{% endif %}
+
 <p>
-    <a href="{% url 'transaction_list' %}">View Transactions</a>
+    <a href="{% url 'transaction_list' %}">View All Transactions</a>
 </p>
 {% endblock %}
