@@ -75,8 +75,17 @@ def transaction_list(request):
 
 @login_required
 def transaction_create(request):
+    has_properties = Property.objects.filter(user=request.user).exists()
+    has_categories = Category.objects.filter(user=request.user).exists()
+
+    if not has_properties or not has_categories:
+        return render(request, "ledger/transaction_setup_required.html", {
+            "has_properties": has_properties,
+            "has_categories": has_categories,
+        })
+
     if request.method == "POST":
-        form = TransactionForm(request.POST)
+        form = TransactionForm(request.POST, user=request.user)
 
         if form.is_valid():
             transaction = form.save(commit=False)
@@ -84,12 +93,11 @@ def transaction_create(request):
             transaction.save()
             return redirect("transaction_list")
     else:
-        form = TransactionForm()
+        form = TransactionForm(user=request.user)
 
     return render(request, "ledger/transaction_form.html", {
         "form": form,
     })
-
 
 @login_required
 def report_summary(request):
@@ -125,6 +133,15 @@ def category_create(request):
 
 @login_required
 def transaction_create(request):
+    has_properties = Property.objects.filter(user=request.user).exists()
+    has_categories = Category.objects.filter(user=request.user).exists()
+
+    if not has_properties or not has_categories:
+        return render(request, "ledger/transaction_setup_required.html", {
+            "has_properties": has_properties,
+            "has_categories": has_categories,
+        })
+
     if request.method == "POST":
         form = TransactionForm(request.POST, user=request.user)
 

@@ -1,0 +1,47 @@
+{% extends "ledger/base.html" %}
+
+{% block content %}
+<h2>Setup Required</h2>
+
+<p>
+    Before adding a transaction, you need at least one rental property and one transaction category.
+</p>
+
+<div class="summary-box">
+    <p>
+        <strong>Property setup:</strong>
+        {% if has_properties %}
+            Complete
+        {% else %}
+            Needed
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Category setup:</strong>
+        {% if has_categories %}
+            Complete
+        {% else %}
+            Needed
+        {% endif %}
+    </p>
+</div>
+
+<p>
+    {% if not has_properties %}
+        <a href="{% url 'property_create' %}">Add a Property</a>
+    {% endif %}
+
+    {% if not has_properties and not has_categories %}
+        |
+    {% endif %}
+
+    {% if not has_categories %}
+        <a href="{% url 'category_create' %}">Add a Category</a>
+    {% endif %}
+</p>
+
+<p>
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</p>
+{% endblock %}
